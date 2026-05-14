@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.deps/
+.venv/
+venv/
+models/*.joblib
+models/*.pkl
+data/
