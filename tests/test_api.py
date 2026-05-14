@@ -96,5 +96,5 @@ def test_model_metadata(client):
     assert response.status_code == 200
     payload = response.json()
     assert payload["confidence_threshold"] == 0.45
-    assert payload["artifact_path"] == "models/document_classifier.joblib"
+    assert payload["artifact_path"] == "models/linear_svc_tfidf_calibrated.joblib"
     assert payload["labels"] == ALL_LABELS

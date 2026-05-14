@@ -1,6 +1,6 @@
 # Trellis Document Classification API
 
-FastAPI service for the Trellis document classification case study. The current implementation uses a deterministic mocked classifier behind the same interface expected by the final TF-IDF + calibrated LinearSVC `joblib` model.
+FastAPI service for the Trellis document classification case study. The API loads the saved TF-IDF + calibrated LinearSVC `joblib` artifact from the `models` folder and exposes it through a production-style FastAPI interface.
 
 ## Run Locally
 
@@ -64,16 +64,16 @@ Returns model type, artifact path, artifact status, confidence threshold, and la
 
 ## Model Artifact
 
-The final TF-IDF model should be saved at `models/document_classifier.joblib` or configured with `MODEL_PATH`.
+The final TF-IDF model is saved at `models/linear_svc_tfidf_calibrated.joblib` by default. You can override the path with `MODEL_PATH`.
 
 The intended production model mirrors the notebook decision:
 
 - Train on all labels except `other`.
 - Use TF-IDF with calibrated LinearSVC so `predict_proba` is available.
-- Return the raw predicted label when confidence is at least `0.45`.
-- Return `other` when confidence is below `0.45`.
+- Return the raw predicted label when confidence is at least the artifact threshold, currently `0.45`.
+- Return `other` when confidence is below that threshold.
 
-Set `REQUIRE_MODEL_ARTIFACT=true` to fail startup/inference if the artifact is missing.
+`REQUIRE_MODEL_ARTIFACT` defaults to `true` so the service fails fast when the model artifact is missing. Set it to `false` only for local fallback testing.
 
 ## Tests
 

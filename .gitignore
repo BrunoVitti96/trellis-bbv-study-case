@@ -1,9 +1,11 @@
 __pycache__/
 *.py[cod]
+*.log
 .pytest_cache/
 .deps/
 .venv/
 venv/
 models/*.joblib
+!models/linear_svc_tfidf_calibrated.joblib
 models/*.pkl
 data/

@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import time
 import uuid
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
@@ -26,16 +27,19 @@ logger = logging.getLogger(__name__)
 
 model_service = DocumentClassifierService(settings)
 
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    model_service.load()
+    yield
+
+
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     description="REST API for classifying text documents into Trellis assessment categories.",
+    lifespan=lifespan,
 )
-
-
-@app.on_event("startup")
-def load_model() -> None:
-    model_service.load()
 
 
 @app.middleware("http")
@@ -76,7 +80,7 @@ async def request_logging_middleware(request: Request, call_next):
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
         content={
             "message": "Invalid request body",
             "detail": jsonable_encoder(exc.errors()),

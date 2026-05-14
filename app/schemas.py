@@ -50,6 +50,7 @@ class ModelMetadataResponse(BaseModel):
     artifact_required: bool
     confidence_threshold: float
     labels: list[str]
+    artifact_sklearn_version: str | None = None
 
 
 class ErrorResponse(BaseModel):
