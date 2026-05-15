@@ -4,7 +4,7 @@ import os
 
 
 class Settings:
-    app_name: str = "Trellis Document Classifier"
+    app_name: str = "Document Classifier"
     app_version: str = "1.0.0"
     model_path: Path = Path(
         os.getenv("MODEL_PATH", "models/linear_svc_tfidf_calibrated.joblib")

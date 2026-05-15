@@ -37,7 +37,7 @@ async def lifespan(_app: FastAPI):
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
-    description="REST API for classifying text documents into Trellis assessment categories.",
+    description="REST API for classifying text documents into assessment categories.",
     lifespan=lifespan,
 )
 

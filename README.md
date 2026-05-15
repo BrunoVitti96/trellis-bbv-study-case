@@ -1,6 +1,6 @@
-# Trellis Document Classification API
+# Document Classification API
 
-FastAPI service for the Trellis document classification case study. The API loads the saved TF-IDF + calibrated LinearSVC `joblib` artifact from the `models` folder and exposes it through a production-style FastAPI interface.
+FastAPI service for the document classification case study. The API loads the saved TF-IDF + calibrated LinearSVC `joblib` artifact from the `models` folder and exposes it through a production-style FastAPI interface.
 
 ## Approach
 
@@ -47,8 +47,8 @@ This command is intended for Linux-based production or the provided Docker image
 ## Docker
 
 ```bash
-docker build -t trellis-document-classifier .
-docker run -p 8000:8000 trellis-document-classifier
+docker build -t document-classifier .
+docker run -p 8000:8000 document-classifier
 ```
 
 ## Endpoints
